@@ -2,7 +2,7 @@ name: Run Robot Framework Tests and Send Email
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # ทุกวัน 07:00 น. (เวลาไทย)
+    - cron: '0 0 * * *'
   push:
     branches: [ main ]
   pull_request:
@@ -42,7 +42,7 @@ jobs:
           python -m robot tests/
 
       - name: Send Email Notification
-        if: always()  # ส่งอีเมลทุกครั้ง (pass/fail)
+        if: always()
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: ${{ secrets.EMAIL_SERVER }}
