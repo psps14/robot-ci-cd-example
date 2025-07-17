@@ -42,17 +42,17 @@ jobs:
           server_port: ${{ secrets.EMAIL_PORT }}
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: Robot Framework Test Report
+          subject: |
+             📧 Robot Framework Tests Result [${{ job.status }}]
           to: ${{ secrets.EMAIL_TO }}
-          from: GitHub Actions <${{ secrets.EMAIL_USERNAME }}>
+          from: ${{ secrets.EMAIL_USERNAME }}
           body: |
             Hello,
 
             Robot Framework tests have been executed on GitHub Actions.
 
-            Status: ${{ job.status }}
-            Commit: ${{ github.sha }}
-            Repository: ${{ github.repository }}
+            📋 Status: ${{ job.status }}
+            🔗 Git action log : ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
             Please find the attached detailed test report.
           attachments: |
