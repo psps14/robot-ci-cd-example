@@ -52,7 +52,7 @@ jobs:
             Robot Framework tests have been executed on GitHub Actions.
 
             📋 Status: ${{ job.status }}
-            🔗 Git action log : ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            🔗 GitHub Ation Log : ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
             Please find the attached detailed test report.
           attachments: |
