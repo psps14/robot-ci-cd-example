@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.13.0 on darwin)" generated="2025-07-17T19:06:56.552966" rpa="false" schemaversion="5">
+<suite id="s1" name="Sample Test" source="/Users/user/Downloads/robot-ci-cd-example/tests/sample_test.robot">
+<test id="s1-t1" name="Open Browser And Check Title" line="8">
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-07-17T19:06:56.894899" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x108c42120&gt;</msg>
+<var>${options}</var>
+<arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
+<arg>sys, selenium.webdriver</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-07-17T19:06:56.893954" elapsed="0.001177"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--headless</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-07-17T19:06:56.896180" elapsed="0.000520"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--no-sandbox</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-07-17T19:06:56.897186" elapsed="0.000492"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-dev-shm-usage</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-07-17T19:06:56.898137" elapsed="0.000432"/>
+</kw>
+<kw name="Call Method" owner="BuiltIn">
+<arg>${options}</arg>
+<arg>add_argument</arg>
+<arg>--disable-gpu</arg>
+<doc>Calls the named method of the given object with the provided arguments.</doc>
+<status status="PASS" start="2025-07-17T19:06:56.898969" elapsed="0.000521"/>
+</kw>
+<kw name="Create Webdriver" owner="SeleniumLibrary">
+<msg time="2025-07-17T19:06:56.900645" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<arg>Chrome</arg>
+<arg>options=${options}</arg>
+<doc>Creates an instance of Selenium WebDriver.</doc>
+<status status="PASS" start="2025-07-17T19:06:56.899883" elapsed="3.408732"/>
+</kw>
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2025-07-17T19:07:00.310440" level="INFO">Opening url 'https://example.com'</msg>
+<msg time="2025-07-17T19:10:57.926907" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1.png"&gt;&lt;img src="selenium-screenshot-1.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2025-07-17T19:10:57.928308" level="FAIL">ReadTimeoutError: HTTPConnectionPool(host='localhost', port=50146): Read timed out. (read timeout=120)</msg>
+<arg>${URL}</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="FAIL" start="2025-07-17T19:07:00.309822" elapsed="237.652012">ReadTimeoutError: HTTPConnectionPool(host='localhost', port=50146): Read timed out. (read timeout=120)</status>
+</kw>
+<kw name="Title Should Be" owner="SeleniumLibrary">
+<arg>Example Domain</arg>
+<doc>Verifies that the current page title equals ``title``.</doc>
+<status status="NOT RUN" start="2025-07-17T19:10:57.962251" elapsed="0.000061"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="NOT RUN" start="2025-07-17T19:10:57.962549" elapsed="0.000049"/>
+</kw>
+<status status="FAIL" start="2025-07-17T19:06:56.892409" elapsed="241.070726">ReadTimeoutError: HTTPConnectionPool(host='localhost', port=50146): Read timed out. (read timeout=120)</status>
+</test>
+<status status="FAIL" start="2025-07-17T19:06:56.554570" elapsed="241.411195"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Sample Test" id="s1" pass="0" fail="1" skip="0">Sample Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

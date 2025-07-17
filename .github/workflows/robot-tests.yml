@@ -1,6 +1,8 @@
-name: Run Robot Framework Tests
+name: Run Robot Framework Tests and Send Email
 
 on:
+  schedule:
+    - cron: '0 0 * * *'  # ทุกวัน 07:00 น. (เวลาไทย)
   push:
     branches: [ main ]
   pull_request:
@@ -29,17 +31,32 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable unzip curl jq
 
-          CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-          echo "Chrome version: $CHROME_VERSION"
-
           CHROMEDRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" | jq -r '.channels.Stable.version')
-          echo "Chromedriver version: $CHROMEDRIVER_VERSION"
-
-          wget -q "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$CHROMEDRIVER_VERSION/linux64/chromedriver-linux64.zip"
+          wget -q "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/${CHROMEDRIVER_VERSION}/linux64/chromedriver-linux64.zip"
           unzip chromedriver-linux64.zip
-          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
+          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Run Robot Framework Tests
         run: |
           python -m robot tests/
+
+      - name: Send Email Notification
+        if: always()  # ส่งอีเมลทุกครั้ง (pass/fail)
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.EMAIL_SERVER }}
+          server_port: ${{ secrets.EMAIL_PORT }}
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: 📋 Robot Test Report: ${{ job.status }}
+          to: ${{ secrets.EMAIL_TO }}
+          from: ${{ secrets.EMAIL_USERNAME }}
+          body: |
+            📢 สถานะการทดสอบ: ${{ job.status }}
+
+            ✅ เวลารัน: ${{ github.run_started_at }}
+            🔗 Repo: https://github.com/${{ github.repository }}
+
+            แนบไฟล์รายงานผลการทดสอบไว้ด้านล่าง
+          attachments: log.html,report.html,output.xml
