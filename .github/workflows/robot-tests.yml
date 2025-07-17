@@ -1,23 +1,23 @@
-name: Run Robot Framework Tests and Send Email
+name: Robot Framework Tests
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * *'  # ทุกวันเวลา 07:00 (ไทย)
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  robot-tests:
+  test:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: '3.10'
 
@@ -25,38 +25,29 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Install Google Chrome & matching Chromedriver
-        run: |
           sudo apt-get update
-          sudo apt-get install -y google-chrome-stable unzip curl jq
-
-          CHROMEDRIVER_VERSION=$(curl -s "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json" | jq -r '.channels.Stable.version')
-          wget -q "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/${CHROMEDRIVER_VERSION}/linux64/chromedriver-linux64.zip"
+          sudo apt-get install -y google-chrome-stable
+          wget -q https://storage.googleapis.com/chrome-for-testing-public/138.0.7204.103/linux64/chromedriver-linux64.zip
           unzip chromedriver-linux64.zip
           sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
           sudo chmod +x /usr/local/bin/chromedriver
 
-      - name: Run Robot Framework Tests
-        run: |
-          python -m robot tests/
+      - name: Run Robot Framework tests
+        run: python -m robot tests/
 
-      - name: Send Email Notification
-        if: always()
+      - name: Send email if tests fail
+        if: failure()
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: ${{ secrets.EMAIL_SERVER }}
           server_port: ${{ secrets.EMAIL_PORT }}
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: '🚨 Robot Framework Tests Failed'${{ job.status }}
+          subject: '🚨 Robot Framework Tests Failed'
           to: ${{ secrets.EMAIL_TO }}
           from: ${{ secrets.EMAIL_USERNAME }}
           body: |
-            📢 สถานะการทดสอบ: ${{ job.status }}
+            ❌ Test run failed.
 
-            ✅ เวลารัน: ${{ github.run_started_at }}
-            🔗 Repo: https://github.com/${{ github.repository }}
-
-            แนบไฟล์รายงานผลการทดสอบไว้ด้านล่าง
-          attachments: log.html,report.html,output.xml
+            Please check logs in GitHub Actions:
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
