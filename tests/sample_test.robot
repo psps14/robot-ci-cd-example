@@ -13,5 +13,5 @@ Open Browser And Check Title
     Call Method    ${options}    add_argument    --disable-gpu
     Create WebDriver    Chrome    options=${options}
     Go To    ${URL}
-    Title Should Be    Example Domain
+    Title Should Be    Example Domain1
     Close Browser
