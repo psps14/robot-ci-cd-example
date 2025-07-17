@@ -2,7 +2,7 @@ name: Robot Framework Tests
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # ทุกวันเวลา 07:00 (ไทย)
+    - cron: '0 0 * * *'  # รันทุกวัน 07:00 (เวลาไทย)
   push:
     branches: [main]
   pull_request:
@@ -33,21 +33,37 @@ jobs:
           sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Run Robot Framework tests
-        run: python -m robot tests/
+        run: |
+          mkdir -p results
+          python -m robot --output results/output.xml --log results/log.html --report results/report.html tests/
 
-      - name: Send email if tests fail
-        if: failure()
+      - name: Archive results
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-results
+          path: results/
+
+      - name: Send email with test results (always)
+        if: always()
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: ${{ secrets.EMAIL_SERVER }}
           server_port: ${{ secrets.EMAIL_PORT }}
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: '🚨 Robot Framework Tests Failed'
+          subject: |
+            📋 Robot Framework Tests Result: ${{ job.status }}
           to: ${{ secrets.EMAIL_TO }}
           from: ${{ secrets.EMAIL_USERNAME }}
           body: |
-            ❌ Test run failed.
+            Hello,
 
-            Please check logs in GitHub Actions:
+            The scheduled Robot Framework test run has completed.
+
+            ✅ Status: ${{ job.status }}
+            🔗 GitHub Actions log:
             ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            Please download reports from artifacts section.
+
+            -- Robot CI/CD Bot
