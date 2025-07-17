@@ -14,4 +14,5 @@ Open Browser And Check Title
     Create WebDriver    Chrome    options=${options}
     Go To    ${URL}
     Title Should Be    Example Domain
+    Capture Page Screenshot
     Close Browser

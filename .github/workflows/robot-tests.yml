@@ -1,12 +1,10 @@
-name: Robot Framework Tests
+name: Robot Framework CI
 
 on:
-  schedule:
-    - cron: '0 0 * * *'  # รันทุกวัน 07:00 (เวลาไทย)
   push:
-    branches: [main]
   pull_request:
-    branches: [main]
+  schedule:
+    - cron: '0 0 * * *' # รันทุกวันเวลา 07:00 (เวลาไทย UTC+7)
 
 jobs:
   test:
@@ -23,27 +21,20 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
-          wget -q https://storage.googleapis.com/chrome-for-testing-public/138.0.7204.103/linux64/chromedriver-linux64.zip
+          wget https://storage.googleapis.com/chrome-for-testing-public/138.0.7204.101/linux64/chromedriver-linux64.zip
           unzip chromedriver-linux64.zip
           sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
-          sudo chmod +x /usr/local/bin/chromedriver
+          chmod +x /usr/local/bin/chromedriver
 
       - name: Run Robot Framework tests
         run: |
           mkdir -p results
-          python -m robot --output results/output.xml --log results/log.html --report results/report.html tests/
+          robot --outputdir results --variable BROWSER:chrome tests/
 
-      - name: Archive results
-        uses: actions/upload-artifact@v4
-        with:
-          name: robot-results
-          path: results/
-
-      - name: Send email with test results (always)
+      - name: Send email with test results
         if: always()
         uses: dawidd6/action-send-mail@v3
         with:
@@ -51,19 +42,19 @@ jobs:
           server_port: ${{ secrets.EMAIL_PORT }}
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: |
-            📋 Robot Framework Tests Result: ${{ job.status }}
+          subject: Robot Framework Test Report
           to: ${{ secrets.EMAIL_TO }}
-          from: ${{ secrets.EMAIL_USERNAME }}
+          from: GitHub Actions <${{ secrets.EMAIL_USERNAME }}>
           body: |
             Hello,
 
-            The scheduled Robot Framework test run has completed.
+            Robot Framework tests have been executed on GitHub Actions.
 
-            ✅ Status: ${{ job.status }}
-            🔗 GitHub Actions log:
-            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            Status: ${{ job.status }}
+            Commit: ${{ github.sha }}
+            Repository: ${{ github.repository }}
 
-            Please download reports from artifacts section.
-
-            -- Robot CI/CD Bot
+            Please find the attached detailed test report.
+          attachments: |
+            results/log.html
+            results/report.html
