@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.3.2 (Python 3.13.0 on darwin)" generated="2025-07-17T20:12:25.911936" rpa="false" schemaversion="5">
+<robot generator="Robot 7.3.2 (Python 3.13.0 on darwin)" generated="2025-07-22T15:05:36.846744" rpa="false" schemaversion="5">
 <suite id="s1" name="Sample Test" source="/Users/user/Downloads/robot-ci-cd-example/tests/sample_test.robot">
 <test id="s1-t1" name="Open Browser And Check Title" line="8">
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-07-17T20:12:26.248956" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x10de62120&gt;</msg>
+<msg time="2025-07-22T15:05:37.183503" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x105686120&gt;</msg>
 <var>${options}</var>
 <arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
 <arg>sys, selenium.webdriver</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-07-17T20:12:26.248424" elapsed="0.000604"/>
+<status status="PASS" start="2025-07-22T15:05:37.182548" elapsed="0.001111"/>
 </kw>
 <kw name="Call Method" owner="BuiltIn">
 <arg>${options}</arg>
 <arg>add_argument</arg>
 <arg>--headless</arg>
 <doc>Calls the named method of the given object with the provided arguments.</doc>
-<status status="PASS" start="2025-07-17T20:12:26.249465" elapsed="0.000300"/>
+<status status="PASS" start="2025-07-22T15:05:37.184541" elapsed="0.000672"/>
 </kw>
 <kw name="Call Method" owner="BuiltIn">
 <arg>${options}</arg>
 <arg>add_argument</arg>
 <arg>--no-sandbox</arg>
 <doc>Calls the named method of the given object with the provided arguments.</doc>
-<status status="PASS" start="2025-07-17T20:12:26.250018" elapsed="0.000245"/>
+<status status="PASS" start="2025-07-22T15:05:37.185742" elapsed="0.000520"/>
 </kw>
 <kw name="Call Method" owner="BuiltIn">
 <arg>${options}</arg>
 <arg>add_argument</arg>
 <arg>--disable-dev-shm-usage</arg>
 <doc>Calls the named method of the given object with the provided arguments.</doc>
-<status status="PASS" start="2025-07-17T20:12:26.250490" elapsed="0.000231"/>
+<status status="PASS" start="2025-07-22T15:05:37.186728" elapsed="0.000440"/>
 </kw>
 <kw name="Call Method" owner="BuiltIn">
 <arg>${options}</arg>
 <arg>add_argument</arg>
 <arg>--disable-gpu</arg>
 <doc>Calls the named method of the given object with the provided arguments.</doc>
-<status status="PASS" start="2025-07-17T20:12:26.250947" elapsed="0.000313"/>
+<status status="PASS" start="2025-07-22T15:05:37.187583" elapsed="0.000452"/>
 </kw>
 <kw name="Create Webdriver" owner="SeleniumLibrary">
-<msg time="2025-07-17T20:12:26.252275" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg time="2025-07-22T15:05:37.188999" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
 <arg>Chrome</arg>
 <arg>options=${options}</arg>
 <doc>Creates an instance of Selenium WebDriver.</doc>
-<status status="PASS" start="2025-07-17T20:12:26.251643" elapsed="1.927046"/>
+<status status="PASS" start="2025-07-22T15:05:37.188477" elapsed="2.709107"/>
 </kw>
 <kw name="Go To" owner="SeleniumLibrary">
-<msg time="2025-07-17T20:12:28.181112" level="INFO">Opening url 'https://example.com'</msg>
+<msg time="2025-07-22T15:05:39.899517" level="INFO">Opening url 'https://www.saucedemo.com/'</msg>
 <arg>${URL}</arg>
 <doc>Navigates the current browser window to the provided ``url``.</doc>
-<status status="PASS" start="2025-07-17T20:12:28.179944" elapsed="0.876656"/>
+<status status="PASS" start="2025-07-22T15:05:39.898587" elapsed="0.613394"/>
 </kw>
 <kw name="Title Should Be" owner="SeleniumLibrary">
-<msg time="2025-07-17T20:12:29.076615" level="INFO">Page title is 'Example Domain'.</msg>
-<arg>Example Domain</arg>
+<msg time="2025-07-22T15:05:40.538122" level="INFO">Page title is 'Swag Labs'.</msg>
+<arg>Swag Labs</arg>
 <doc>Verifies that the current page title equals ``title``.</doc>
-<status status="PASS" start="2025-07-17T20:12:29.057929" elapsed="0.018835"/>
+<status status="PASS" start="2025-07-22T15:05:40.515240" elapsed="0.023197"/>
 </kw>
 <kw name="Capture Page Screenshot" owner="SeleniumLibrary">
-<msg time="2025-07-17T20:12:29.166359" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-2.png"&gt;&lt;img src="selenium-screenshot-2.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2025-07-22T15:05:40.629548" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
 <doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
-<status status="PASS" start="2025-07-17T20:12:29.077258" elapsed="0.089251"/>
+<status status="PASS" start="2025-07-22T15:05:40.539383" elapsed="0.090303"/>
 </kw>
 <kw name="Close Browser" owner="SeleniumLibrary">
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2025-07-17T20:12:29.166848" elapsed="0.098768"/>
+<status status="PASS" start="2025-07-22T15:05:40.630085" elapsed="0.096488"/>
 </kw>
-<status status="PASS" start="2025-07-17T20:12:26.247050" elapsed="3.019148"/>
+<status status="PASS" start="2025-07-22T15:05:37.179806" elapsed="3.547338"/>
 </test>
-<status status="PASS" start="2025-07-17T20:12:25.913621" elapsed="3.353746"/>
+<status status="PASS" start="2025-07-22T15:05:36.848750" elapsed="3.879795"/>
 </suite>
 <statistics>
 <total>

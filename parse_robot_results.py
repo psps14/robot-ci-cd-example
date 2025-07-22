@@ -1,16 +1,22 @@
 from robot.api import ExecutionResult
 
-# โหลดผลลัพธ์จาก output.xml
+# โหลดผลลัพธ์
 result = ExecutionResult('results/output.xml')
 
 # เตรียมตารางรายงาน
 lines = ["| Test Case | Status |", "|-----------|--------|"]
 
-# ลูปผ่านเทสเคสทั้งหมด
-for test in result.suite.tests:
-    status = "PASS" if test.passed else "FAIL"
-    lines.append(f"| {test.name} | {status} |")
+# ฟังก์ชันวนซ้ำเพื่ออ่านทุก test case จากทุก suite ย่อย
+def collect_tests(suite):
+    for test in suite.tests:
+        status = "PASS" if test.passed else "FAIL"
+        lines.append(f"| {test.name} | {status} |")
+    for sub in suite.suites:
+        collect_tests(sub)
 
-# บันทึกไฟล์รายงาน
+# เริ่มจาก root suite
+collect_tests(result.suite)
+
+# เขียนไฟล์
 with open("results/test_summary.txt", "w") as f:
     f.write("\n".join(lines))
