@@ -34,6 +34,10 @@ jobs:
           mkdir -p results
           robot --outputdir results --variable BROWSER:chrome tests/
 
+      - name: Parse Robot Results
+        run: |
+          python parse_robot_results.py
+
       - name: Send email with test results
         if: always()
         uses: dawidd6/action-send-mail@v3
@@ -43,18 +47,22 @@ jobs:
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: |
-             📧 Robot Framework Tests Result [${{ job.status }}]
+            📧 Robot Framework Test Results [${{ job.status }}]
           to: ${{ secrets.EMAIL_TO }}
           from: ${{ secrets.EMAIL_USERNAME }}
           body: |
             Hello,
 
-            Robot Framework tests have been executed on GitHub Actions.
+            Robot Framework tests have been executed.
 
             📋 Status: ${{ job.status }}
-            🔗 GitHub Ation Log : ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            🔗 GitHub Actions Log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-            Please find the attached detailed test report.
+            Test Summary:
+            {{ test_result_summary }}
+
+            Please see attached report.html and log.html for full details.
           attachments: |
             results/log.html
             results/report.html
+            results/test_summary.txt
