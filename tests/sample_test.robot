@@ -5,7 +5,7 @@ Library    SeleniumLibrary
 ${URL}          https://www.saucedemo.com/
 
 *** Test Cases ***
-Open Browser And Check Title
+TC01 Open Browser And Check Title
     ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
     Call Method    ${options}    add_argument    --headless
     Call Method    ${options}    add_argument    --no-sandbox
@@ -14,5 +14,17 @@ Open Browser And Check Title
     Create WebDriver    Chrome    options=${options}
     Go To    ${URL}
     Title Should Be    Swag Labs
+    Capture Page Screenshot
+    Close Browser
+
+TC02 Open Browser And Check Title
+    ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    Call Method    ${options}    add_argument    --headless
+    Call Method    ${options}    add_argument    --no-sandbox
+    Call Method    ${options}    add_argument    --disable-dev-shm-usage
+    Call Method    ${options}    add_argument    --disable-gpu
+    Create WebDriver    Chrome    options=${options}
+    Go To    ${URL}
+    Title Should Be    Swag Labs1
     Capture Page Screenshot
     Close Browser

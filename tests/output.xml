@@ -1,74 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.3.2 (Python 3.13.0 on darwin)" generated="2025-07-22T15:05:36.846744" rpa="false" schemaversion="5">
+<robot generator="Robot 6.1 (Python 3.13.0 on darwin)" generated="20250722 20:23:23.075" rpa="false" schemaversion="4">
 <suite id="s1" name="Sample Test" source="/Users/user/Downloads/robot-ci-cd-example/tests/sample_test.robot">
 <test id="s1-t1" name="Open Browser And Check Title" line="8">
-<kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-07-22T15:05:37.183503" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x105686120&gt;</msg>
+<kw name="Evaluate" library="BuiltIn">
 <var>${options}</var>
 <arg>sys.modules['selenium.webdriver'].ChromeOptions()</arg>
 <arg>sys, selenium.webdriver</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-07-22T15:05:37.182548" elapsed="0.001111"/>
+<msg timestamp="20250722 20:23:23.392" level="INFO">${options} = &lt;selenium.webdriver.chrome.options.Options object at 0x10ff6c050&gt;</msg>
+<status status="PASS" starttime="20250722 20:23:23.391" endtime="20250722 20:23:23.392"/>
 </kw>
-<kw name="Call Method" owner="BuiltIn">
+<kw name="Call Method" library="BuiltIn">
 <arg>${options}</arg>
 <arg>add_argument</arg>
 <arg>--headless</arg>
 <doc>Calls the named method of the given object with the provided arguments.</doc>
-<status status="PASS" start="2025-07-22T15:05:37.184541" elapsed="0.000672"/>
+<status status="PASS" starttime="20250722 20:23:23.392" endtime="20250722 20:23:23.393"/>
 </kw>
-<kw name="Call Method" owner="BuiltIn">
+<kw name="Call Method" library="BuiltIn">
 <arg>${options}</arg>
 <arg>add_argument</arg>
 <arg>--no-sandbox</arg>
 <doc>Calls the named method of the given object with the provided arguments.</doc>
-<status status="PASS" start="2025-07-22T15:05:37.185742" elapsed="0.000520"/>
+<status status="PASS" starttime="20250722 20:23:23.393" endtime="20250722 20:23:23.393"/>
 </kw>
-<kw name="Call Method" owner="BuiltIn">
+<kw name="Call Method" library="BuiltIn">
 <arg>${options}</arg>
 <arg>add_argument</arg>
 <arg>--disable-dev-shm-usage</arg>
 <doc>Calls the named method of the given object with the provided arguments.</doc>
-<status status="PASS" start="2025-07-22T15:05:37.186728" elapsed="0.000440"/>
+<status status="PASS" starttime="20250722 20:23:23.394" endtime="20250722 20:23:23.394"/>
 </kw>
-<kw name="Call Method" owner="BuiltIn">
+<kw name="Call Method" library="BuiltIn">
 <arg>${options}</arg>
 <arg>add_argument</arg>
 <arg>--disable-gpu</arg>
 <doc>Calls the named method of the given object with the provided arguments.</doc>
-<status status="PASS" start="2025-07-22T15:05:37.187583" elapsed="0.000452"/>
+<status status="PASS" starttime="20250722 20:23:23.394" endtime="20250722 20:23:23.395"/>
 </kw>
-<kw name="Create Webdriver" owner="SeleniumLibrary">
-<msg time="2025-07-22T15:05:37.188999" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<kw name="Create Webdriver" library="SeleniumLibrary">
 <arg>Chrome</arg>
 <arg>options=${options}</arg>
 <doc>Creates an instance of Selenium WebDriver.</doc>
-<status status="PASS" start="2025-07-22T15:05:37.188477" elapsed="2.709107"/>
+<msg timestamp="20250722 20:23:23.395" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<status status="PASS" starttime="20250722 20:23:23.395" endtime="20250722 20:23:26.332"/>
 </kw>
-<kw name="Go To" owner="SeleniumLibrary">
-<msg time="2025-07-22T15:05:39.899517" level="INFO">Opening url 'https://www.saucedemo.com/'</msg>
+<kw name="Go To" library="SeleniumLibrary">
 <arg>${URL}</arg>
 <doc>Navigates the current browser window to the provided ``url``.</doc>
-<status status="PASS" start="2025-07-22T15:05:39.898587" elapsed="0.613394"/>
+<msg timestamp="20250722 20:23:26.334" level="INFO">Opening url 'https://www.saucedemo.com/'</msg>
+<status status="PASS" starttime="20250722 20:23:26.333" endtime="20250722 20:23:28.076"/>
 </kw>
-<kw name="Title Should Be" owner="SeleniumLibrary">
-<msg time="2025-07-22T15:05:40.538122" level="INFO">Page title is 'Swag Labs'.</msg>
+<kw name="Title Should Be" library="SeleniumLibrary">
 <arg>Swag Labs</arg>
 <doc>Verifies that the current page title equals ``title``.</doc>
-<status status="PASS" start="2025-07-22T15:05:40.515240" elapsed="0.023197"/>
+<msg timestamp="20250722 20:23:28.090" level="INFO">Page title is 'Swag Labs'.</msg>
+<status status="PASS" starttime="20250722 20:23:28.077" endtime="20250722 20:23:28.090"/>
 </kw>
-<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
-<msg time="2025-07-22T15:05:40.629548" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-3.png"&gt;&lt;img src="selenium-screenshot-3.png" width="800px"&gt;&lt;/a&gt;</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
 <doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
-<status status="PASS" start="2025-07-22T15:05:40.539383" elapsed="0.090303"/>
+<msg timestamp="20250722 20:23:28.156" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20250722 20:23:28.090" endtime="20250722 20:23:28.156"/>
 </kw>
-<kw name="Close Browser" owner="SeleniumLibrary">
+<kw name="Close Browser" library="SeleniumLibrary">
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2025-07-22T15:05:40.630085" elapsed="0.096488"/>
+<status status="PASS" starttime="20250722 20:23:28.157" endtime="20250722 20:23:28.265"/>
 </kw>
-<status status="PASS" start="2025-07-22T15:05:37.179806" elapsed="3.547338"/>
+<status status="PASS" starttime="20250722 20:23:23.390" endtime="20250722 20:23:28.266"/>
 </test>
-<status status="PASS" start="2025-07-22T15:05:36.848750" elapsed="3.879795"/>
+<status status="PASS" starttime="20250722 20:23:23.077" endtime="20250722 20:23:28.266"/>
 </suite>
 <statistics>
 <total>
@@ -77,7 +77,7 @@
 <tag>
 </tag>
 <suite>
-<stat name="Sample Test" id="s1" pass="1" fail="0" skip="0">Sample Test</stat>
+<stat pass="1" fail="0" skip="0" id="s1" name="Sample Test">Sample Test</stat>
 </suite>
 </statistics>
 <errors>
