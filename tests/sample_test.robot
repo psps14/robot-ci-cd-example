@@ -2,7 +2,7 @@
 Library    SeleniumLibrary
 
 *** Variables ***
-${URL}          https://example.com
+${URL}          https://www.saucedemo.com/
 
 *** Test Cases ***
 Open Browser And Check Title
@@ -13,6 +13,6 @@ Open Browser And Check Title
     Call Method    ${options}    add_argument    --disable-gpu
     Create WebDriver    Chrome    options=${options}
     Go To    ${URL}
-    Title Should Be    Example Domain
+    Title Should Be    Swag Labs
     Capture Page Screenshot
     Close Browser
