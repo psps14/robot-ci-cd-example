@@ -4,7 +4,7 @@ from robot.api import ExecutionResult
 result = ExecutionResult('results/output.xml')
 
 # เตรียมตารางรายงาน
-lines = ["| Test Case | Status |", "|-----------|--------|"]
+lines = ["| Test Case                   | Status |", "|--------------------------------|--------|"]
 
 # ฟังก์ชันวนซ้ำเพื่ออ่านทุก test case จากทุก suite ย่อย
 def collect_tests(suite):
