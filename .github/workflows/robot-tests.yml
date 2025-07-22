@@ -34,11 +34,11 @@ jobs:
           mkdir -p results
           robot --outputdir results --variable BROWSER:chrome tests/
 
-      - name: Parse Robot Results
+      - name: Parse Robot Results to Excel and Markdown
         id: parse_results
         run: |
           python parse_robot_results.py
-          summary=$(cat results/test_summary.txt | tail -n +3 | tr '\n' ',' | sed 's/,$//')
+          summary=$(tail -n +3 results/test_summary.txt | tr '\n' ',' | sed 's/,$//')
           echo "test_result_summary=$summary" >> $GITHUB_OUTPUT
 
       - name: Send email with test results
@@ -64,8 +64,9 @@ jobs:
             Test Summary:
             ${{ steps.parse_results.outputs.test_result_summary }}
 
-            Please see attached report.html and log.html for full details.
+            Please see attached report.html, log.html, and test_summary.xlsx for full details.
           attachments: |
             results/log.html
             results/report.html
             results/test_summary.txt
+            results/test_summary.xlsx
