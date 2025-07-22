@@ -35,8 +35,11 @@ jobs:
           robot --outputdir results --variable BROWSER:chrome tests/
 
       - name: Parse Robot Results
+        id: parse_results
         run: |
           python parse_robot_results.py
+          summary=$(cat results/test_summary.txt | tail -n +3 | tr '\n' ',' | sed 's/,$//')
+          echo "test_result_summary=$summary" >> $GITHUB_OUTPUT
 
       - name: Send email with test results
         if: always()
@@ -59,7 +62,7 @@ jobs:
             🔗 GitHub Actions Log: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
             Test Summary:
-            {{ test_result_summary }}
+            ${{ steps.parse_results.outputs.test_result_summary }}
 
             Please see attached report.html and log.html for full details.
           attachments: |
